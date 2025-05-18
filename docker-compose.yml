@@ -1,0 +1,21 @@
+services:
+  backend:
+    build: ./backend
+    container_name: express-backend
+    ports:
+      - "5050:5050"
+    volumes:
+      - ./backend:/app
+    restart: unless-stopped
+
+  frontend:
+    build: ./frontend
+    container_name: react-frontend
+    ports:
+      - "80:80"
+    volumes:
+      - ./frontend:/app
+      - /app/node_modules
+    restart: unless-stopped
+    depends_on:
+      - backend
